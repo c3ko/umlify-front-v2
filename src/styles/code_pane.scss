@@ -19,8 +19,7 @@ ul {
     .file-panel-container {
         display: flex;
         flex-direction: column;
-        min-width: 150px;
-        max-width: 250px;
+        width: 220px;
        
 
         .file-panel-list {
@@ -45,6 +44,7 @@ ul {
 .CodeMirror {
     //height: calc(100vh - 35 - 25);
     height: calc(100vh - 35px);
+    max-width: calc(100vw - 220px - 47vw);
 }
 p.file-panel-title {
     background-color: $dark-colour;

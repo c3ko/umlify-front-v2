@@ -5,6 +5,15 @@ export default (state = {}, action) => {
             return {
 
             }
+            break;
+        case 'DELETE_FILE':
+            return {
+
+            }
+        case 'DELETE_ALL_FILES':
+            return {
+                
+            }
     
     default:
         return state
