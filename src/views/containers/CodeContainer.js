@@ -4,8 +4,7 @@ import 'codemirror/lib/codemirror.css';
 import 'codemirror/theme/material-palenight.css';
 import 'codemirror/theme/lesser-dark.css';
 import 'codemirror/theme/neat.css';
-import 'codemirror/mode/javascript/javascript.js';
-import 'codemirror/mode/python/python.js';
+import 'codemirror/addon/scroll/simplescrollbars';
 import 'codemirror/mode/clike/clike.js'
 
 
@@ -18,7 +17,8 @@ const options = {
     mode: 'text/x-java',
     theme: 'material-palenight',
     lineNumbers: true,
-    matchBrackets: true
+    matchBrackets: true,
+    scrollBarStyle: "simple"
 
 }
 function CodeContainer() {
@@ -33,13 +33,15 @@ function CodeContainer() {
                 <FilePanelList filenameList={ filenameList } />
             </div>
             <div className="code-entry-container">
-                <FileTabList fileTabNameList={ filenameList }/>
+                <p className="current-file-title">Title</p>
                 <CodeMirror
+                    className="codemirror"
                     value={currentCode}
                     options={options}
                     onBeforeChange={(editor, data, currentCode) => {
                         setCurrentCode(currentCode);
                     }}
+                    
                     onChange={(editor, value) => {
                         console.log('controlled', {value});
                     }}

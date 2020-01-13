@@ -1,14 +1,14 @@
 import React from 'react';
 
-export function FilePanelToolbar({ }) {
+export function FilePanelToolbar() {
 
     return (
-        <div className="file-panel-toolbar">
+        <span className="file-panel-toolbar">
             <button><i className="fas fa-check-square"></i></button>
             <button><i className="fas fa-plus"></i></button>
             <button><i className="fas fa-trash"></i></button>
             
-        </div>
+        </span>
     )
 }
 function FilePanelListItem({ filename }) {

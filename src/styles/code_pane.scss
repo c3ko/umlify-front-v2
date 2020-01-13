@@ -1,5 +1,6 @@
-$top-bar-height: 45px;
-
+$top-bar-height: 35px;
+$toolbar-height: 25px;
+$dark-colour: #152026;
 button {
     padding: 0;
     border: none;
@@ -11,23 +12,42 @@ ul {
 }
 
 .code-panel-container {
-    width: 60%;
+    
     display: flex;
+    height: 100%;
+    
     .file-panel-container {
-        min-width: 200px;
-        max-width: 300px;
-        
+        display: flex;
+        flex-direction: column;
+        min-width: 150px;
+        max-width: 250px;
+       
+
+        .file-panel-list {
+            flex-grow: 1;
+        }
     }
     
     .code-entry-container {
-        display: inline-block;
-        flex-grow: 1;
+        display: flex;
+        flex-direction: column;
         
+        flex-grow: 1; // fill remaining width of code-panel-container
+
+        //height: 100%;
+        align-self: stretch;
     }
+
+
 }
 
+
+.CodeMirror {
+    //height: calc(100vh - 35 - 25);
+    height: calc(100vh - 35px);
+}
 p.file-panel-title {
-    background-color: #152026;
+    background-color: $dark-colour;
     color: white;
     text-align: center;
     padding-top: 5px;
@@ -36,12 +56,13 @@ p.file-panel-title {
     height: $top-bar-height;
 
 }
+
+
 .file-panel-list {
     margin: 0;
-    
-    background: #263238;
-    
+    background: #32454f;
     .file-panel-item {
+        
         cursor: pointer;
         padding-top: 4px;
         padding-left: 15px;
@@ -79,9 +100,12 @@ p.file-panel-title {
 .file-panel-toolbar {
     display: flex;
     flex-wrap: nowrap;
-    
+
+    height: $toolbar-height;
     background: #70808a;
-    padding: 5px 10px 5px 10px;
+    justify-content: center;
+
+
     
     i {
         font-size: 15px;
@@ -99,38 +123,13 @@ p.file-panel-title {
 
 }
 
-ul.file-tab-list {
+.current-file-title {
 
-    display: flex;
-    flex-wrap: nowrap;
-    justify-content: start;
     height: $top-bar-height;
-    background: #152026;
-    
-
-    li {
-        cursor: pointer;
-        text-align: center;
-        padding: 12px;
-        
-        min-width:100px;
-        border-right: 1px solid #59d;
-        
-    }
-
-    :last-child {
-        border-left: none;
-    }
-
-    &.active {
-
-    }
-
-    .file-tab-item {
-
-        color: white;
-
-
-    }
+    background: $dark-colour;
+    color: white;
+    text-align: center;
+    padding-top: 3px;
+    border-left: 1px solid;
+    border-color: rgba(238,238,238, 0.2);
 }
-

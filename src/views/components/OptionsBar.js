@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 
 function OptionsBar() {
     return (
-        <div>
+        <div className="options-bar-container">
             
         </div>
     )

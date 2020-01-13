@@ -3,6 +3,8 @@
 @import url('https://fonts.googleapis.com/css?family=Nunito:400,700');
 
 @import url('https://fonts.googleapis.com/css?family=Inconsolata&display=swap');
+
+@import 'reset.scss';
 /*
 
 // Update Bulma's global variables
@@ -46,7 +48,20 @@ body {
 
 .App {
     display: flex;
+    overflow: hidden;
+    width: 100vw;
+    height: 100vh;
+}
 
+.code-panel-container {
+    
+    flex: 0 0 53%;
+    //flex-grow: 0;
+    background: lightgray;
     
 }
 
+.uml-panel-container {
+    flex: 0 0 47%;
+    background-color: grey;
+}
