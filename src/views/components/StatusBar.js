@@ -2,11 +2,10 @@ import React from 'react';
 
 function StatusBar({ currentStatus }) {
     return (
-        <div className="status-bar-container">
-            <ul>
-                <li></li>
-            </ul>
-        </div>
+        <span className="status-bar-container">
+            <p className=""></p>
+            <p className=""></p>
+        </span>
     )
 }
 

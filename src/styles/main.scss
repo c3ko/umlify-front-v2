@@ -33,6 +33,8 @@ $input-shadow: none;
 
 */
 
+$options-bar-height: 50px;
+
 @import '../../node_modules/@fortawesome/fontawesome-free/scss/fontawesome.scss';
 @import '../../node_modules/@fortawesome/fontawesome-free/scss/solid.scss';
 
@@ -48,9 +50,38 @@ body {
 
 .App {
     display: flex;
-    overflow: hidden;
+    flex-direction: column;
+    
+    
+}
+
+.options-bar-container {
+    flex: 0 0 $options-bar-height;
+
+    display: flex;
+    justify-content: space-evenly;
+    background: black;
+    color: white;
+    align-items: center;
+    span {
+        margin-left: 10px;
+        
+    }
+
+    button {
+        color: white;
+    }
+}
+
+
+.content {
+
+    flex: 1 1;
+
+    display: flex;
     width: 100vw;
-    height: 100vh;
+
+
 }
 
 .code-panel-container {
@@ -62,6 +93,8 @@ body {
 }
 
 .uml-panel-container {
-    flex: 0 0 47%;
+    flex: 1 1 47%;
     background-color: grey;
+    
+
 }

@@ -15,8 +15,11 @@ function FilePanelListItem({ filename }) {
     return (
         <li className="file-panel-item">
             <span>
+                <input className="file-item-checkbox" type="checkbox" />
                 <i className="fas fa-file"></i>
-                { filename }
+                <label>
+                    { filename }
+                </label>
             </span>
         </li>
     )
