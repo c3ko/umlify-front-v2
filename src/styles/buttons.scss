@@ -1,0 +1,34 @@
+$code-mirror-purple: #A6ACCD;
+
+
+.button {
+    cursor: pointer;
+    outline: none;
+    
+      &.outline {
+          position: relative;
+          z-index: 3;
+          background: transparent;
+          color: $code-mirror-purple;
+          font-size: 15px;
+          font-weight: 600;
+          border-color:$code-mirror-purple;
+          border-style: solid;
+          border-width: 2px;
+          border-radius: 3px;
+          padding: 5px 40px;
+          text-transform: uppercase;
+          transition: all 0.2s linear;
+          
+
+      }
+      &.outline:hover {
+          color: white;
+          background: $code-mirror-purple;
+          border-color: white;
+          transition: all 0.2s linear;
+      }
+      &.outline:active {
+          border-radius: 3px;
+      }
+}

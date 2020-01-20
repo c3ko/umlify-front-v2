@@ -35,6 +35,11 @@ $input-shadow: none;
 
 $options-bar-height: 50px;
 
+@import '../styles/buttons.scss';
+
+$light-grey: #ebe8e4;
+$dark-grey: #6b6865;
+
 @import '../../node_modules/@fortawesome/fontawesome-free/scss/fontawesome.scss';
 @import '../../node_modules/@fortawesome/fontawesome-free/scss/solid.scss';
 
@@ -57,20 +62,27 @@ body {
 
 .options-bar-container {
     flex: 0 0 $options-bar-height;
-
+    background: $light-grey;
     display: flex;
-    justify-content: space-evenly;
-    background: black;
-    color: white;
+    justify-content: space-around;
+    color: $dark-grey;
     align-items: center;
-    span {
+    box-shadow: 1px 1px 20px rgba(0, 0, 0, 0.3);
+    transition: all .8s;
+
+
+
+    span.format-choice {
         margin-left: 10px;
+        padding-right: 20px;
         
     }
 
-    button {
-        color: white;
+    input {
+        
     }
+
+
 }
 
 

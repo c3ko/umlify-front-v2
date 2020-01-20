@@ -27,7 +27,8 @@ function FilePanelListItem({ filename }) {
 function FilePanelList({ filenameList }) {
     return (
         <ul className="file-panel-list">
-            { filenameList.map(filename => <FilePanelListItem filename={filename} />) }
+           
+            { filenameList != null ? filenameList.map(filename => <FilePanelListItem filename={filename} />)  : <> </>}
         </ul>
         
     )

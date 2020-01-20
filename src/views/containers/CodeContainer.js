@@ -10,7 +10,6 @@ import 'codemirror/mode/clike/clike.js'
 
 import { Controlled as CodeMirror} from 'react-codemirror2';
 import '../../styles/code_pane.scss';
-import FileTabList from '../components/FileTabList';
 const filenameList = ['File1.java', 'File2.java', 'File3.java'];
 
 const options = {
@@ -21,8 +20,13 @@ const options = {
     scrollBarStyle: "simple"
 
 }
-function CodeContainer() {
 
+
+function CodeContainer() {
+    const newFileHandler = (e) => {
+
+    }
+    
     const [ currentCode, setCurrentCode] = useState('');
 
     return (
@@ -30,7 +34,7 @@ function CodeContainer() {
             <div className="file-panel-container">
                 <p className="file-panel-title">FILES</p>
                 <FilePanelToolbar />
-                <FilePanelList filenameList={ filenameList } />
+                <FilePanelList />
             </div>
             <div className="code-entry-container">
                 <p className="current-file-title">Title</p>
