@@ -14,6 +14,21 @@ ul {
     list-style: none;
 }
 
+
+.add-button-group {
+    display: flex;
+    flex-direction: column;
+    
+    .speech-bubble {
+        margin-top: 52px;
+        margin-left: 23px;
+        position: absolute;
+        left: 0;
+        right: 0;
+        width: 90px;
+        padding: 10px;
+    }
+}
 .code-panel-container {
     
     display: flex;
@@ -43,12 +58,38 @@ ul {
 
 }
 
+.speech-bubble {
+	position: relative;
+	background: #b6a03f;
+	border-radius: .4em;
+}
+
+.speech-bubble:after {
+	content: '';
+	position: absolute;
+	top: 0;
+	left: 50%;
+	width: 0;
+	height: 0;
+	border: 30px solid transparent;
+	border-bottom-color: #b6a03f;
+	border-top: 0;
+	border-left: 0;
+	margin-left: -15px;
+	margin-top: -30px;
+}
 
 .CodeMirror {
     //height: calc(100vh - 35 - 25);
     height: calc(100vh - 50px - 35px);
     max-width: calc(100vw - 220px - 47vw);
     min-width: 400px;
+}
+
+.intro {
+    background-color: #292D3E;
+    opacity: 0.7;
+    color: #A6ACCD;
 }
 p.file-panel-title {
     background-color: $dark-colour;
@@ -65,22 +106,37 @@ p.file-panel-title {
 .file-panel-list {
     margin: 0;
     background: #32454f;
+
+    .filename-input-container {
+        width: 100%;
+        margin: 5px;
+        
+
+
+    }
     .file-panel-item {
         
+
         cursor: pointer;
         padding-top: 4px;
         padding-left: 6px;
         
-
+        input.filename-input {
+            width: 100%;
+            padding-left: 4px;
+            background-color: lightgray;
+        }
 
         span {
-            
             
             font-size: 12pt;
                 
             color: #C3E88D;
             width: 100%;  
 
+            :hover {
+                cursor: text;
+            }
         }
         
         input.file-item-checkbox {
@@ -126,7 +182,7 @@ p.file-panel-title {
 .file-panel-toolbar {
     display: flex;
     flex-wrap: nowrap;
-
+    
     height: $toolbar-height;
     background: #70808a;
     justify-content: flex-start;

@@ -1,0 +1,26 @@
+$options-bar-height: 50px;
+
+.options-bar-container {
+    flex: 0 0 $options-bar-height;
+    background: black;
+    display: flex;
+    justify-content: space-around;
+    color: white;
+    align-items: center;
+    box-shadow: 1px 1px 20px rgba(0, 0, 0, 0.3);
+    transition: all .8s;
+
+
+
+    span.format-choice {
+        margin-left: 10px;
+        padding-right: 20px;
+        
+    }
+
+    input {
+        
+    }
+
+
+}

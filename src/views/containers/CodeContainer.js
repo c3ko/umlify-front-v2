@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import FilePanelList, { FilePanelToolbar } from '../components/FilePanelList';
+import React, { useState, useEffect } from 'react';
+import FilePanelList, { FilePanelToolbar } from './FilePanel';
 import 'codemirror/lib/codemirror.css';
 import 'codemirror/theme/material-palenight.css';
 import 'codemirror/theme/lesser-dark.css';
@@ -21,36 +21,81 @@ const options = {
 
 }
 
-
 function CodeContainer() {
-    const newFileHandler = (e) => {
-
-    }
     
+    useEffect(() => {
+        // Check if cookies stored previous Files, if not set displayIntro to true
+        setDisplayIntro(true);
+        setTitle('');
+    }, []);
+
+    const fileDropHandler = (e) => {
+        e.preventDefault();
+        if (e.dataTransfer.items){
+            
+        }
+    }
+
+    const [ newFileStatus, setNewFileStatus ] = useState('hidden');
+    const setFocusAndGetFileName = () => {
+        
+    }
+
+    const addNewFile = (e) => {
+        e.preventDefault();
+        setDisplayIntro(false);
+        setNewFileStatus('entry');
+
+
+    };
+    const removeFiles = (e) => {
+        e.preventDefault();
+
+    };
+
+    
+    const [ title, setTitle ] = useState('');
+    const [ displayIntro, setDisplayIntro ] = useState(null);
     const [ currentCode, setCurrentCode] = useState('');
+    
+
 
     return (
         <div className="code-panel-container">
             <div className="file-panel-container">
                 <p className="file-panel-title">FILES</p>
-                <FilePanelToolbar />
-                <FilePanelList />
-            </div>
-            <div className="code-entry-container">
-                <p className="current-file-title">Title</p>
-                <CodeMirror
-                    className="codemirror"
-                    value={currentCode}
-                    options={options}
-                    onBeforeChange={(editor, data, currentCode) => {
-                        setCurrentCode(currentCode);
-                    }}
-                    
-                    onChange={(editor, value) => {
-                        console.log('controlled', {value});
-                    }}
+                <FilePanelToolbar 
+                    addNewFileHandler={addNewFile}
+                    removeFiles={removeFiles}
+                />
+                <FilePanelList 
+                    newFileStatus={newFileStatus}
                 />
             </div>
+            
+            <div className="code-entry-container">
+            <p className="current-file-title">{title}</p>
+                {
+                    displayIntro ?
+                    <div className="intro CodeMirror">
+                        
+                    </div>
+                    :
+                    <CodeMirror
+                        className="codemirror"
+                        value={currentCode}
+                        options={options}
+                        onBeforeChange={(editor, data, currentCode) => {
+                            setCurrentCode(currentCode);
+                        }}
+                        
+                        onChange={(editor, value) => {
+                            console.log('controlled', {value});
+                        }}
+                    />
+                }
+            </div>
+            
         </div>
     )
 }

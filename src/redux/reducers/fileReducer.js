@@ -14,7 +14,6 @@ export default (state = [], action) => {
                 }
             ]
           
-            break;
         case types.MODIFY_FILE:
             return state.map(file => {
                 if(file.id == action.payload.id){
@@ -22,11 +21,9 @@ export default (state = [], action) => {
                 }
                 return file;
             })
-            break;
             
         case types.DELETE_FILE:
             return state.filter(file => file.id != action.payload.id); 
-            break;
         default:
             return state
     }

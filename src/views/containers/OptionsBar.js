@@ -6,12 +6,12 @@ function OptionsBar() {
             <li>
                 Output Format:
                 <span className="format-choice">
-                    <input id="svg" type="radio" name="format" value="svg" />
-                    <label for="svg">SVG</label>
+                    <input defaultChecked id="svg" type="radio" name="format" value="svg" />
+                    <label htmlFor="svg">SVG</label>
                 </span>
                 <span className="format-choice">
                     <input id="png" type="radio" name="format" value="png" />
-                    <label for="png">PNG</label>
+                    <label htmlFor="png">PNG</label>
                 </span>
             </li>
             <li>
