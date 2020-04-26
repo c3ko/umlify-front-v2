@@ -6,9 +6,13 @@ import App from './App';
 import configureStore from './redux/store';
 import * as serviceWorker from './serviceWorker';
 
+import { applyMiddleware, createStore } from 'redux';
+import thunk from 'redux-thunk';
+import rootReducer from './redux/reducers';
 
+const store = createStore(rootReducer, applyMiddleware(thunk));
 ReactDOM.render(
-    <Provider store={configureStore()}>
+    <Provider store={store}>
         <App />
     </Provider>
 , document.getElementById('root'));

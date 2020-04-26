@@ -1,115 +1,155 @@
 import React, { useState, useEffect, createRef } from 'react';
+import { connect } from 'react-redux'; 
+import { addNewFile, selectFile,
+    startFileNameChange, 
+    deleteFile, changeFileName,
+    deleteAll, 
+    changeFileSrc,
+    setNameNewFile
+ } from '../../redux/actions/files';
 
-export function FilePanelToolbar({ addNewFileHandler }) {
-    
+
+const FilePanel = (props) => {
+
+    const { selectedId } = props;
+    const createFileHandler = (e) => {
+        e.preventDefault();
+        props.addNewFile();
+
+    }
     return (
-        <span className="file-panel-toolbar">
-
-            <button><i className="fas fa-check-square"></i></button>
-            <div className="add-button-group">
-                <button onClick={addNewFileHandler}>
-                    <i className="fas fa-plus"></i>
-                </button>
-                <div className="speech-bubble">
-                    <p>Click here to add new File</p>
-                </div>
-            </div>
-
-            <button><i className="fas fa-trash"></i></button>
+        <ul className="file-list">
+            <span className="file-panel-toolbar">                
+                <button onClick={createFileHandler}><i className="fas fa-plus"></i></button>         
+                <button onClick={(e) => deleteAll()}><i className="fas fa-trash"></i></button>
+            </span>
+            {props.files.map((file, index) => file.editingName ? <ModFileListItem file={file} {...props}/> :  <FileListItem file={file} {...props}/> )}
+            { props.files.newFileEntry ? <ModFileListItem {...props}/> : <></>}
             
+        </ul>
+    )
+}
+
+const FileListItem = (props) => {
+
+    let timer = 0;
+    let delay = 200;
+    let prevent = false;
+  
+    const { file, deleteFile, startFileNameChange } = props;
+
+    const handleKeydown = (e) => {
+        // Enter is pressed
+        if (e.keyCode === 13){
+            e.target.blur();
+            console.log(e.target.value);
+            changeFileName(file.id, e.target.value);
+        }
+    }
+
+    return (
+        <span className="file-list-item"
+            onClick={(e) => {
+                
+            }}
+        >
+            <i className="fas fa-file" />
+            <input
+                className={"file-list-item-input" + props.selectedId === file.id ? " selected": ""}
+                name = { file.id }
+                onMouseDown={e => e.preventDefault()}
+                onClick={(e) => {
+                    e.preventDefault();
+                    timer = setTimeout(() => {
+                        if (!(prevent)){
+                            console.log('Single Click') // Select File
+                        }
+                        prevent= false;
+                    }, delay)
+                }}
+                onDoubleClick={(e) => {
+                    e.preventDefault();
+                    clearTimeout(timer);
+                    prevent = true;
+                    console.log('Double Click');
+                    //e.target.focus();
+                    startFileNameChange(file.id);
+                    
+                    
+                }}
+                value={ file.name } type="text" 
+                onKeyDown={handleKeydown}
+
+            />
+            <button className="delete-file-button" onClick={(e) => deleteFile(file.id)}><i className="fas fa-times-circle"></i></button>
+        </span>
+    )
+}
+
+const ModFileListItem = (props) => {
+    
+    const { file, changeFileName } = props;
+    const [ name, setName ] = useState((file ? file.name : null) || '');
+    const fileRef = createRef();
+
+    useEffect(() => {
+        // Listen for click outside input
+        fileRef.current.focus();  
+        // Stop listening on unmount
+        return () => {
+
+        }
+
+    }, []);
+
+    const handleKeydown = (e) => {
+        // Enter is pressed
+        if (e.keyCode === 13){ 
+            e.target.blur();
+        }
+    }
+
+    return (
+        <span className="file-list-item"
+            onClick={(e) => {
+                
+            }}
+        >
+            <i className="fas fa-file" />
+            <input
+                className="file-list-item-input"
+                ref={fileRef}
+                name = { file ? file.id : null }
+                onMouseDown={e => e.preventDefault()}     
+                value={ name } type="text" 
+                onKeyDown={handleKeydown}
+                onBlur={(e) => changeFileName(file.id, e.target.value)}
+                onChange={(e) => setName(e.value)}
+            />
+            <button className="delete-file-button name-entry"><i className="fas fa-times-circle"></i></button>
         </span>
     )
 }
 
 
+const mapStateToProps = (state) => {
 
-function FilePanelEntryItem(modifyFileHandler){
-    const newItemRef = createRef();
+    return {
+        files: Object.values(state.files.byIds),
+        selectedId: state.files.selectedId,
+        newFileEntry: state.files.newFileEntry
 
-    const handleOutsideClick = (e) => {
-        e.preventDefault();
-        // Click was made outside
-        if (!newItemRef.current.contains(e.target)){
-            console.log('Clicked Outside');
-            //modifyFileHandler();
-        }
     }
-    
-    useEffect(() => {
-        newItemRef.current.focus();
-
-        // Listen for click outside input
-        document.addEventListener('mousedown', handleOutsideClick, false);    
-
-        // Stop listening on unmount
-        return () => {
-            document.removeEventListener('mousedown', handleOutsideClick, false); 
-        }
-    }, [])
-
-
-    const keyHandler = (e) => {
-        if (e.key === "Enter"){
-            modifyFileHandler(e.value);
-        }
-    }
-
-    return (
-        <li className="file-panel-item">
-            <input 
-                className="filename-input" type="text"
-                onKeyDown={keyHandler}
-                ref={newItemRef} 
-            />          
-        </li>
-    )
-
 }
 
-function FilePanelListItem({ filename, newFile, newFileHandler }) {
-    const [ modifyName, setModifyName] = useState(false);
-
-
-    const handleDBClick = (e) => {
-        e.preventDefault();
-        setModifyName(true);
-
-    }
-
-
-    if (newFile || modifyName) {
-        return (
-            <FilePanelEntryItem />
-        )
-
-    }
-
-    else {
-        return (
-            <li className="file-panel-item" >
-                <span onDoubleClick={handleDBClick}>
-                    <input className="file-item-checkbox" type="checkbox" />
-                    <i className="fas fa-file"></i>
-                    <label>
-                        { filename }
-                    </label>
-                </span>
-            </li>
-        )
-    }
-
+const mapDispatchToProps =  { 
+    addNewFile,
+    deleteFile,
+    deleteAll,
+    changeFileName,
+    changeFileSrc,
+    setNameNewFile,
+    startFileNameChange
 }
 
-
-function FilePanel({ filenameList, newFileStatus }) {
-    
-    return (
-        <ul className="file-panel-list">
-            { filenameList != null ? filenameList.map(filename => <FilePanelListItem newFile={newFileStatus === "entry"} filename={filename} />)  : <> </>}
-            <FilePanelListItem filename="Example" />
-        </ul>
-        
-    )
-}
-
-export default FilePanel;
+export default connect(mapStateToProps, mapDispatchToProps)(FilePanel);

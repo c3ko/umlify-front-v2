@@ -1,24 +1,63 @@
 import * as types from './types';
 
-let fileCount = 0;
 
 /*
-    file will be object in form of { name: "", src: ""} containing name of file and the source code of the file
+    file will be object in form of { id: , name: "", src: ""} containing name of file and the source code of the file
 */
-export const addFile = (file)  => ({
+let id = 1;
+
+export const addNewFile = ()  => ({
     type: types.ADD_NEW_FILE,
-    id: fileCount++,
-    file
+    payload :{
+        id: id++
+    }
 });
 
+export const setNameNewFile = (filename) => ({
+    type: types.SET_NAME_NEW_FILE,
+    payload : {
+        name: filename
+    }
+})
 
-export const changeFile = (id, file) => ({
-    type: types.MODIFY_FILE,
-    id,
-    file
+export const selectFile = (id) => ({
+    type: types.TOGGLE_SELECT_FILE,
+    payload : {
+        id
+    }
+    
+})
+export const startFileNameChange = (id) => ({
+    type: types.START_MODIFY_FILE_NAME,
+    payload: {
+        id
+    }
+})
+
+export const changeFileName = (id, name) => ({
+    type: types.MODIFY_FILE_NAME,
+    payload: {
+        id,
+        name
+    }
 });
+
+export const changeFileSrc = (file) => ({
+    type: types.MODIFY_FILE_SRC,
+    payload: {
+        id: file.id,
+        src: file.src
+    }
+
+})
 
 export const deleteFile = (id) => ({
     type: types.DELETE_FILE,
-    id
+    payload: {
+        id
+    }
+})
+
+export const deleteAll = () => ({
+    type: types.DELETE_ALL_FILES,
 })

@@ -53,36 +53,10 @@ body {
 }
 
 .App {
-    display: flex;
-    flex-direction: column;
-    
+
     
 }
 
 
 
 
-.content {
-
-    flex: 1 1;
-
-    display: flex;
-    width: 100vw;
-
-
-}
-
-.code-panel-container {
-    
-    flex: 0 0 53%;
-    //flex-grow: 0;
-    background: lightgray;
-    
-}
-
-.uml-panel-container {
-    flex: 1 1 47%;
-    background-color: grey;
-    
-
-}
