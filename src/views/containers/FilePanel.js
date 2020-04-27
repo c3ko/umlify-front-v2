@@ -11,10 +11,10 @@ import { addNewFile, selectFile,
 
 const FilePanel = (props) => {
 
-    const { selectedId } = props;
+    const { selectedId, addNewFile, deleteAll } = props;
     const createFileHandler = (e) => {
         e.preventDefault();
-        props.addNewFile();
+        addNewFile();
 
     }
     return (

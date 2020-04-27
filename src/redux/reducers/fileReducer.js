@@ -14,7 +14,13 @@ const initialState = {
     
 }
 
+function filterObject(object, key){
+    let newObject = object;
+    delete newObject[key];
+    return newObject; 
+}
 export default (state = initialState, action) => {
+    console.log(Object.values(state.byIds));
     switch(action.type){
         case types.ADD_NEW_FILE: {
             const { id } = action.payload;
@@ -93,9 +99,10 @@ export default (state = initialState, action) => {
         case types.DELETE_FILE: {
             const { id } = action.payload;
             return {
-                allIds: state.allIds.filter(file => file.id === id),
-                byIds: Object.values(state.byIds).filter(file => file.id === id),
-                selectedId: state.allIds.length ? state.allIds[0] : null 
+                ...state,
+                allIds: state.allIds.filter(fileId => fileId === id),
+                byIds: filterObject(state.byIds, id),
+                selectedId: state.selectedId - 1
             }
         }
         case types.DELETE_ALL_FILES: {
@@ -103,5 +110,8 @@ export default (state = initialState, action) => {
         }
         default:
             return state
+
+        
     }
+    
 }
