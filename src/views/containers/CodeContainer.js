@@ -6,9 +6,11 @@ import FilePanel from './FilePanel';
 import { connect } from 'react-redux';
 import '../../styles/code_pane.scss';
 
+import { changeFileSrc } from '../../redux/actions/files';
 
-function CodeContainer() {
+function CodeContainer(props) {
     
+    const { selectedId, files, changeFileSrc } = props;
     const codeRef = createRef();
     const [ currentCode, setCurrentCode] = useState('');
     const [ codeFocus, setCodeFocus] = useState(false);
@@ -39,30 +41,33 @@ function CodeContainer() {
         }
     },[])
 
-
-
+    const file = files.byIds[selectedId];
     return (
-        <>
-            <AceEditor
-                ref={codeRef}
-                mode="javascript"
-                theme="monokai"
-                name="ace-editor"
-                onChange={(value) => {
-                    setCurrentCode(value);
-                }}
-                fontSize={14}
-                showPrintMargin={true}
-                showGutter={true}
-                highlightActiveLine={true}
-                value={currentCode}
-                setOptions={{
-                    showLineNumbers: true,                
-                    tabSize: 4,
-                }}
-                />
-                <FilePanel />
-            </>
+        <div className="code-panel-container">
+            <FilePanel />
+            <div className="code-entry" >
+                <AceEditor
+                    ref={codeRef}
+                    mode="javascript"
+                    theme="monokai"
+                    name="ace-editor"
+                    onChange={(value) => {
+                        changeFileSrc(file.id, value);
+                    }}
+                    width={"inherit"}
+                    height={"100%"}
+                    fontSize={14}
+                    showPrintMargin={true}
+                    showGutter={true}
+                    highlightActiveLine={true}
+                    value={file ? file.src : ''}
+                    setOptions={{
+                        showLineNumbers: true,                
+                        tabSize: 4,
+                    }}
+                    /> 
+            </div>  
+          </div>
             
 
         );
@@ -70,12 +75,13 @@ function CodeContainer() {
 
 const mapStateToProps = (state) => {
     return {
-        files: state.files
+        files: state.files,
+        selectedId: state.files.selectedId,
     }
 }
 
-const mapDispatchToProps = () => {
-
+const mapDispatchToProps = {
+    changeFileSrc
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(CodeContainer);

@@ -7,11 +7,10 @@ export const IDLE = "IDLE";
 const initialState = {
     allIds: [],
     byIds: {
-
     },
     selectedId: null,
     newFileEntry: false,
-    
+    enteringName: false,
 }
 
 function filterObject(object, key){
@@ -20,7 +19,6 @@ function filterObject(object, key){
     return newObject; 
 }
 export default (state = initialState, action) => {
-    console.log(Object.values(state.byIds));
     switch(action.type){
         case types.ADD_NEW_FILE: {
             const { id } = action.payload;
@@ -38,7 +36,8 @@ export default (state = initialState, action) => {
                     },
                 },
                 selectedId: id,
-                newFileEntry: true
+                newFileEntry: true,
+                enteringName: true
             }
         }
         case types.START_MODIFY_FILE_NAME: {
@@ -51,7 +50,8 @@ export default (state = initialState, action) => {
                         ...state.byIds[id],
                         editingName: true,
                     }
-                }
+                },
+                enteringName: true
             }
         }
         case types.MODIFY_FILE_NAME: {
@@ -67,7 +67,8 @@ export default (state = initialState, action) => {
                         editingName: false,
                     }
                 },
-                newFileEntry: false
+                newFileEntry: false,
+                enteringName: false
             }
 
         }

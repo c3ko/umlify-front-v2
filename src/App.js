@@ -7,10 +7,11 @@ import OptionsBar from './views/containers/OptionsBar';
 function App() {
   return (
     <div className="App">
-
-        <CodeContainer />
-
-
+        <OptionsBar />
+        <div className="main-content">
+          <CodeContainer />
+          <UMLContainer />
+        </div>
     </div>
 
 

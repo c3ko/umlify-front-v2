@@ -54,7 +54,28 @@ body {
 
 .App {
 
-    
+  .main-content {
+    display: flex;
+    height: 100vh;
+  }
+
+  .code-panel-container {
+    display: flex;
+    width: 100%;
+
+    .file-list {
+      min-width: 202px;
+      width: 202px;
+    }
+
+    .code-entry {
+      width: 100%;
+    }
+  }
+
+  .uml-panel-container {
+    width: 100%;
+  }
 }
 
 

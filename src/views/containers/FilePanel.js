@@ -11,7 +11,7 @@ import { addNewFile, selectFile,
 
 const FilePanel = (props) => {
 
-    const { selectedId, addNewFile, deleteAll } = props;
+    const { addNewFile, deleteAll } = props;
     const createFileHandler = (e) => {
         e.preventDefault();
         addNewFile();
@@ -36,7 +36,7 @@ const FileListItem = (props) => {
     let delay = 200;
     let prevent = false;
   
-    const { file, deleteFile, startFileNameChange } = props;
+    const { file, enteringName, selectedId, selectFile, deleteFile, startFileNameChange } = props;
 
     const handleKeydown = (e) => {
         // Enter is pressed
@@ -55,14 +55,15 @@ const FileListItem = (props) => {
         >
             <i className="fas fa-file" />
             <input
-                className={"file-list-item-input" + props.selectedId === file.id ? " selected": ""}
+                className={selectedId === file.id ? "file-list-item-input selected": "file-list-item-input"}
                 name = { file.id }
                 onMouseDown={e => e.preventDefault()}
                 onClick={(e) => {
                     e.preventDefault();
                     timer = setTimeout(() => {
-                        if (!(prevent)){
+                        if (!(prevent) && !(enteringName)){
                             console.log('Single Click') // Select File
+                            selectFile(file.id);
                         }
                         prevent= false;
                     }, delay)
@@ -137,8 +138,8 @@ const mapStateToProps = (state) => {
     return {
         files: Object.values(state.files.byIds),
         selectedId: state.files.selectedId,
-        newFileEntry: state.files.newFileEntry
-
+        newFileEntry: state.files.newFileEntry,
+        enteringName: state.files.enteringName
     }
 }
 
@@ -146,6 +147,7 @@ const mapDispatchToProps =  {
     addNewFile,
     deleteFile,
     deleteAll,
+    selectFile,
     changeFileName,
     changeFileSrc,
     setNameNewFile,

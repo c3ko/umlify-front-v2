@@ -1,7 +1,8 @@
 .file-list {
     display: flex;
     flex-direction: column;
-    width: fit-content;
+
+    
     span.file-panel-toolbar {
         display: inline-flex;
         background: #add8e6;
@@ -31,6 +32,10 @@
             }
 
 
+        }
+
+        .selected {
+            background: grey;
         }
 
         :nth-child(3) {

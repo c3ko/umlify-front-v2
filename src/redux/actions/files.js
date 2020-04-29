@@ -42,11 +42,11 @@ export const changeFileName = (id, name) => ({
     }
 });
 
-export const changeFileSrc = (file) => ({
+export const changeFileSrc = (id, src) => ({
     type: types.MODIFY_FILE_SRC,
     payload: {
-        id: file.id,
-        src: file.src
+        id,
+        src
     }
 
 })
