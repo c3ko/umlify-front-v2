@@ -15,9 +15,11 @@ function OptionsBar() {
                 </span>
             </li>
             <li>
-                <div className="">
-                    <button className="submit-button button outline">Submit</button>
-                </div>
+                <span className="button-group">
+                    <button className="reset-button button solid">Reset</button>
+                    <button className="submit-button button outline">Submit</button>   
+                </span>
+
             </li>
 
         </ul>

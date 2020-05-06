@@ -1,4 +1,5 @@
 import React, { useState, useEffect, createRef } from 'react';
+import { useSelector } from 'react-redux';
 import AceEditor from 'react-ace';
 import "ace-builds/src-noconflict/mode-javascript";
 import "ace-builds/src-noconflict/theme-monokai";
@@ -9,39 +10,27 @@ import '../../styles/code_pane.scss';
 import { changeFileSrc } from '../../redux/actions/files';
 
 function CodeContainer(props) {
-    
     const { selectedId, files, changeFileSrc } = props;
-    const codeRef = createRef();
-    const [ currentCode, setCurrentCode] = useState('');
-    const [ codeFocus, setCodeFocus] = useState(false);
-    
-    const handleOutsideClick = (e) => {
-        if(e.keyCode === 27){
-            //setCodeFocus(false);
-            if (codeRef.current && !codeFocus){
-                
-                codeRef.current.editor.blur();
-
-            } else if (codeRef.current && codeFocus){
-                codeRef.current.editor.focus();
-            }
-            setCodeFocus(!codeFocus)
-            console.log(codeFocus)
-            
-        }
-    }
-    useEffect(() => {
-
-        // Listen for click outside input
-        document.addEventListener('keydown', handleOutsideClick, false);    
-
-        // Stop listening on unmount
-        return () => {
-            document.removeEventListener('keydown', handleOutsideClick, false); 
-        }
-    },[])
 
     const file = files.byIds[selectedId];
+    const codeRef = createRef();
+    
+    
+
+
+    useEffect(() => {
+
+        if (codeRef.current && !files.newFileEntry && files.selectedId){
+            codeRef.current.editor.focus();
+            
+        }
+        // Stop listening on unmount
+        return () => {
+        }
+    },[files.newFileEntry])
+
+
+    
     return (
         <div className="code-panel-container">
             <FilePanel />
