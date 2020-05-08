@@ -2,31 +2,43 @@
     display: flex;
     flex-direction: column;
 
+    background-color: #1c1c1a;
     
     span.file-panel-toolbar {
         display: inline-flex;
-        background: #add8e6;
+        background: #41423A;
         padding-bottom: 10px 5px 10px 5px;
         button {
             cursor: pointer;
             border: none;
             background: none;
             padding: 3px;
+            color: rgb(145, 145, 141);
+            padding-left: 12px;
+
+            &:hover {
+                color: #F8F8F2;
+            }
         }
     }
     span.file-list-item {
         display: inline-flex;
         padding-left: 10px;
-
-        background-color: lightgray;
         
+        i.fa-file {
+            color: #F8F8F2;
+        }
+
+
         input {
             display: block;
             width: 150px;
             cursor: pointer;
+            color: #F8F8F2;
             margin-left: 10px;
             border: none;
             background: inherit;
+            padding-left: 3px;
             &:focus {
                 cursor: text;
             }
@@ -34,7 +46,7 @@
 
         }
 
-        .selected {
+        &.selected {
             background: grey;
         }
 
@@ -64,9 +76,19 @@
 
 
 }
-.delete-file-button {
+button.delete-file-button {
+    outline: none;
+    background: none;
+    border: none;
+    color: white;
+    cursor: pointer;
+
     .name-entry {
         visibility: hidden;
+    }
+
+    &:hover {
+        color: #f56262;
     }
 
 }

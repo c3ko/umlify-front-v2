@@ -15,7 +15,6 @@ const FilePanel = (props) => {
     const createFileHandler = (e) => {
         e.preventDefault();
         addNewFile();
-
     }
     return (
         <ul className="file-list">
@@ -23,7 +22,7 @@ const FilePanel = (props) => {
                 <button onClick={createFileHandler}><i className="fas fa-plus"></i></button>         
                 <button onClick={(e) => deleteAll()}><i className="fas fa-trash"></i></button>
             </span>
-            {props.files.map((file, index) => file.editingName ? <ModFileListItem file={file} {...props}/> :  <FileListItem file={file} {...props}/> )}
+            {props.files.map((file, index) => file.editingName ? <ModFileListItem key={file.id} file={file} {...props}/> :  <FileListItem key={file.id} file={file} {...props}/> )}
             { props.files.newFileEntry ? <ModFileListItem {...props}/> : <></>}
             
         </ul>
@@ -35,7 +34,6 @@ const FileListItem = (props) => {
     let timer = 0;
     let delay = 200;
     let prevent = false;
-  
     const { file, enteringName, selectedId, selectFile, deleteFile, startFileNameChange } = props;
 
     const handleKeydown = (e) => {
@@ -48,11 +46,7 @@ const FileListItem = (props) => {
     }
 
     return (
-        <span className="file-list-item"
-            onClick={(e) => {
-                
-            }}
-        >
+        <span className={selectedId === file.id ? "file-list-item selected": "file-list-item"}>
             <i className="fas fa-file" />
             <input
                 className={selectedId === file.id ? "file-list-item-input selected": "file-list-item-input"}
@@ -78,7 +72,8 @@ const FileListItem = (props) => {
                     
                     
                 }}
-                value={ file.name } type="text" 
+                value={ file.name } type="text"
+                onChange={e => e.preventDefault()} 
                 onKeyDown={handleKeydown}
 
             />
@@ -90,12 +85,13 @@ const FileListItem = (props) => {
 const ModFileListItem = (props) => {
     
     const { file, changeFileName } = props;
-    const [ name, setName ] = useState((file ? file.name : null) || '');
-    const fileRef = createRef();
+    const [ name, setName ] = useState((file ? file.name : ''));
+    const fileItemRef = createRef();
 
     useEffect(() => {
+        
         // Listen for click outside input
-        fileRef.current.focus();  
+        fileItemRef.current.focus();  
         // Stop listening on unmount
         return () => {
 
@@ -111,20 +107,19 @@ const ModFileListItem = (props) => {
     }
 
     return (
-        <span className="file-list-item"
-            onClick={(e) => {
-                
-            }}
-        >
+        <span className="file-list-item">
             <i className="fas fa-file" />
             <input
                 className="file-list-item-input"
-                ref={fileRef}
-                name = { file ? file.id : null }
-                onMouseDown={e => e.preventDefault()}     
-                value={ name } type="text" 
+                ref={fileItemRef}
+                name = { file.id }
+                defaultValue={ name } type="text" 
                 onKeyDown={handleKeydown}
-                onBlur={(e) => changeFileName(file.id, e.target.value)}
+                onBlur={(e) => {
+                    selectFile(file.id)
+                    changeFileName(file.id, e.target.value)
+
+                }}
                 onChange={(e) => setName(e.value)}
             />
             <button className="delete-file-button name-entry"><i className="fas fa-times-circle"></i></button>

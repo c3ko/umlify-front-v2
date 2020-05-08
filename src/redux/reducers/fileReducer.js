@@ -11,6 +11,7 @@ const initialState = {
     selectedId: null,
     newFileEntry: false,
     enteringName: false,
+    prevSelectedId: null
 }
 
 function filterObject(object, key){
@@ -33,6 +34,7 @@ export default (state = initialState, action) => {
                         src: '',
                         editingName: true,
                         editingCode: false,
+                        newBlankEntry: true
                     },
                 },
                 selectedId: id,
@@ -74,10 +76,13 @@ export default (state = initialState, action) => {
         }
         case types.TOGGLE_SELECT_FILE: {
             const { id } = action.payload;
+            const temp = (id === state.selectedId && state.revSelectedId !== null ? state.prevSelectedId : state.selectedId) // If selected Again keep previous prevId
+
             return {
                 ...state,
                 selectedId: id,
-                editingCode: true
+                editingCode: true,
+                prevSelectedId: temp
             }
         }
 
@@ -91,7 +96,8 @@ export default (state = initialState, action) => {
                         id,
                         name: state.byIds[id].name,
                         src,
-                        editingCode: false
+                        editingCode: false,
+                        newBlankEntry: false
                     }
                 },
                 
@@ -99,11 +105,12 @@ export default (state = initialState, action) => {
         }  
         case types.DELETE_FILE: {
             const { id } = action.payload;
+
             return {
                 ...state,
                 allIds: state.allIds.filter(fileId => fileId === id),
                 byIds: filterObject(state.byIds, id),
-                selectedId: state.selectedId - 1
+                selectedId: state.selectedId !== id ? state.selectedId : state.prevSelectedId
             }
         }
         case types.DELETE_ALL_FILES: {

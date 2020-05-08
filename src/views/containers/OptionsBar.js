@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, {} from 'react';
 import '../../styles/options.scss';
 function OptionsBar() {
     return (
@@ -16,8 +16,8 @@ function OptionsBar() {
             </li>
             <li>
                 <span className="button-group">
-                    <button className="reset-button button solid">Reset</button>
-                    <button className="submit-button button outline">Submit</button>   
+                    <button className="reset-button button solid">SUBMIT</button>
+                    <button className="submit-button button outline">DOWNLOAD</button>   
                 </span>
 
             </li>
