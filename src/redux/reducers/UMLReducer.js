@@ -18,11 +18,23 @@ export default function UMLReducer(state = initialState, action){
                 loading: true
             };
         case GET_UML_SUCCESS:
+
             return {
                 ...state,
                 loading: false,
                 error: null,
-                
-            }
+                uml: action.payload.uml
+
+            };
+        case GET_UML_FAILURE:
+
+            return {
+                ...state,
+                loading: false,
+                error: action.payload.err
+            };
+
+        default:
+            return state;
     }
 }

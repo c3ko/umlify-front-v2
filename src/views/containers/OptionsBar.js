@@ -4,15 +4,7 @@ function OptionsBar() {
     return (
         <ul className="options-bar-container">
             <li>
-                Output Format:
-                <span className="format-choice">
-                    <input defaultChecked id="svg" type="radio" name="format" value="svg" />
-                    <label htmlFor="svg">SVG</label>
-                </span>
-                <span className="format-choice">
-                    <input id="png" type="radio" name="format" value="png" />
-                    <label htmlFor="png">PNG</label>
-                </span>
+                <h1>UMLIFY</h1>
             </li>
             <li>
                 <span className="button-group">

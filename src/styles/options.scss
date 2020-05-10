@@ -4,7 +4,7 @@ $options-bar-height: 50px;
     flex: 0 0 $options-bar-height;
     background: black;
     display: flex;
-    justify-content: space-around;
+    justify-content: space-between;
     color: white;
     align-items: center;
     box-shadow: 1px 1px 20px rgba(0, 0, 0, 0.3);
@@ -12,7 +12,12 @@ $options-bar-height: 50px;
 
     height: 65px;
 
-
+    li > h1 {
+        margin-left: 20px;
+        letter-spacing: 3px;
+        font-size: 45px;
+        font-weight: 300;
+    }
     span.format-choice {
         margin-left: 10px;
         padding-right: 20px;

@@ -15,7 +15,8 @@ export const getUML = (files, imageType) => {
 
         axios
             .post(`${DEV_URL}/${imageType}`, {
-                responseType: 'arraybuffer'
+                responseType: 'arraybuffer',
+                files
             })
             .then(res => {
                 setTimeout(() => {
@@ -36,7 +37,7 @@ const getUMLStarted = () => ({
 const getUMLSuccess = uml => ({
     type: GET_UML_SUCCESS,
     payload: {
-        ...uml
+        uml
     }
 })
 
