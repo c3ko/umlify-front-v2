@@ -6,21 +6,20 @@ import {
 
 import axios from 'axios';
 
-DEV_URL = "http://localhost:8080";
+const DEV_URL = "http://localhost:8080";
 
 
 export const getUML = (files, imageType) => {
+    
     return dispatch => {
         dispatch(getUMLStarted());
-
         axios
-            .post(`${DEV_URL}/${imageType}`, {
-                responseType: 'arraybuffer',
+            .post(`${DEV_URL}/uml/${imageType}`, {
                 files
             })
             .then(res => {
                 setTimeout(() => {
-                    dispatch(getUMLSuccess(Buffer.from(res.data, 'binary').toString('base64')))
+                    dispatch(getUMLSuccess(res.data))
                 })
             })
             .catch(err => {

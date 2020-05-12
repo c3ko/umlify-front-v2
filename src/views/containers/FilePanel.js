@@ -1,6 +1,9 @@
 import React, { useState, useEffect, createRef } from 'react';
 import { connect } from 'react-redux'; 
-import { addNewFile, selectFile,
+import { 
+    addNewFile,
+    addDroppedFiles,
+    selectFile,
     startFileNameChange, 
     deleteFile, changeFileName,
     deleteAll, 
@@ -10,21 +13,98 @@ import { addNewFile, selectFile,
 
 
 const FilePanel = (props) => {
-
-    const { addNewFile, deleteAll } = props;
+    let dragCounter = 0
+    const [ dragOver, setDragOver ] = useState(false);
+    const dropRef = createRef();
+    const { addNewFile, addDroppedFiles, deleteAll } = props;
     const createFileHandler = (e) => {
         e.preventDefault();
         addNewFile();
     }
+    const handleDrag = (e) => {
+        e.preventDefault()
+        e.stopPropagation()
+    }
+
+    const handleDragIn = (e) => {
+        e.preventDefault()
+        e.stopPropagation()
+        dragCounter++
+        if (e.dataTransfer.items && e.dataTransfer.items.length > 0)
+            setDragOver(true)
+    }
+
+    const handleDragOut = (e) => {
+        e.preventDefault()
+        e.stopPropagation()
+        dragCounter--
+        if (dragCounter == 0){
+            setDragOver(false)
+        }
+    }
+
+    const handleDrop = (e) => {
+        e.preventDefault()
+        e.stopPropagation()
+        setDragOver(false)
+        if (e.dataTransfer.files && e.dataTransfer.files.length > 0){
+            let promises = []
+            const fileList = []
+            
+            for(var i=0; i < e.dataTransfer.files.length; i++){
+                const file = e.dataTransfer.files[i]
+                if(file.name.includes('.java')){
+                    let filePromise = new Promise(resolve => {
+                        let reader = new FileReader()
+                        reader.onload = function(e){
+                            //fileList.push({'name' : file.name, 'src': e.target.result})
+                            resolve({name: file.name, src: e.target.result})
+                        }
+                        reader.readAsText(file)
+
+                    })
+                    promises.push(filePromise)
+                }
+
+            }
+            Promise.all(promises).then(files => {
+                console.log(files)
+                addDroppedFiles(files)
+                e.dataTransfer.clearData()
+                dragCounter = 0
+            })
+
+
+        }
+    }
+
+    useEffect(() => {
+        let ul = dropRef.current;
+        ul.addEventListener('dragenter', handleDragIn)
+        ul.addEventListener('dragleave', handleDragOut)
+        ul.addEventListener('dragover', handleDrag)
+        ul.addEventListener('drop', handleDrop)
+
+        return () => {
+            ul.removeEventListener('dragenter', handleDragIn)
+            ul.removeEventListener('dragleave', handleDragOut)
+            ul.removeEventListener('dragover', handleDrag)
+            ul.removeEventListener('drop', handleDrop)
+        }
+
+    }, [])
+
     return (
-        <ul className="file-list">
+        <ul className={dragOver ? "file-list dragOver" :"file-list"}
+            ref={dropRef}
+        >
             <span className="file-panel-toolbar">                
                 <button onClick={createFileHandler}><i className="fas fa-plus"></i></button>         
                 <button onClick={(e) => deleteAll()}><i className="fas fa-trash"></i></button>
             </span>
-            {props.files.map((file, index) => file.editingName ? <ModFileListItem key={file.id} file={file} {...props}/> :  <FileListItem key={file.id} file={file} {...props}/> )}
-            { props.files.newFileEntry ? <ModFileListItem {...props}/> : <></>}
             
+            {props.files.map((file, index) => file.editingName ? <ModFileListItem key={file.id} file={file} {...props}/> :  <FileListItem key={file.id} file={file} {...props}/> )}
+            { props.files.newFileEntry ? <ModFileListItem {...props}/> : <></>}            
         </ul>
     )
 }
@@ -140,6 +220,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps =  { 
     addNewFile,
+    addDroppedFiles,
     deleteFile,
     deleteAll,
     selectFile,

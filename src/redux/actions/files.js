@@ -6,6 +6,21 @@ import * as types from './types';
 */
 let id = 1;
 
+export const addDroppedFiles = (files) => {
+    const fileList = []
+    files.map(file => {
+        fileList.push({id: id++, name: file.name, src: file.src});
+    })
+    console.log("AddDroppedFile list length", files.length)
+    console.log("AddDroppedFIle", fileList)
+    return {
+        type: types.ADD_DROPPED_FILES,
+        payload: {
+            fileList
+        }
+    }
+
+}
 export const addNewFile = ()  => ({
     type: types.ADD_NEW_FILE,
     payload :{

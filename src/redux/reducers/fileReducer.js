@@ -21,6 +21,30 @@ function filterObject(object, key){
 }
 export default (state = initialState, action) => {
     switch(action.type){
+        case types.ADD_DROPPED_FILES: {
+            const { fileList } = action.payload;
+            const filesByIds = {}
+            fileList.map(file => {
+                filesByIds[file.id] = {
+                    id: file.id,
+                    name: file.name,
+                    src: file.src,
+                    editingName: false,
+                    editingCode: false,
+                    newBlankEntry: false
+                }
+            })
+
+            return {
+                ...state,
+                allIds: [...state.allIds, fileList.map(file => file.id)],
+                byIds: {
+                    ...state.byIds,
+                    ...filesByIds
+                }
+            }
+        }
+
         case types.ADD_NEW_FILE: {
             const { id } = action.payload;
             return {

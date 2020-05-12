@@ -1,13 +1,23 @@
 .file-list {
     display: flex;
+    position: relative;
     flex-direction: column;
 
     background-color: #1c1c1a;
     
+    .drop-overlay {
+        width: inherit;
+    }
+    &.dragOver {
+        background-color: grey;
+        border: 1px solid rgb(184, 184, 250);
+    }
+
     span.file-panel-toolbar {
         display: inline-flex;
         background: #41423A;
         padding-bottom: 10px 5px 10px 5px;
+        width: 100%;
         button {
             cursor: pointer;
             border: none;
@@ -24,11 +34,10 @@
     span.file-list-item {
         display: inline-flex;
         padding-left: 10px;
-        
+    
         i.fa-file {
             color: #F8F8F2;
         }
-
 
         input {
             display: block;
@@ -61,7 +70,7 @@
 
     
         &:hover {
-            background: grey;
+            background: rgb(177, 174, 174);
             :nth-child(3) {
                 visibility: visible;
             }
