@@ -48,17 +48,14 @@ const FilePanel = (props) => {
         e.stopPropagation()
         setDragOver(false)
         if (e.dataTransfer.files && e.dataTransfer.files.length > 0){
-            let promises = []
-            const fileList = []
-            
+            let promises = []            
             for(var i=0; i < e.dataTransfer.files.length; i++){
                 const file = e.dataTransfer.files[i]
                 if(file.name.includes('.java')){
                     let filePromise = new Promise(resolve => {
                         let reader = new FileReader()
                         reader.onload = function(e){
-                            //fileList.push({'name' : file.name, 'src': e.target.result})
-                            resolve({name: file.name, src: e.target.result})
+                            resolve({ name: file.name, src: e.target.result })
                         }
                         reader.readAsText(file)
 
@@ -68,7 +65,6 @@ const FilePanel = (props) => {
 
             }
             Promise.all(promises).then(files => {
-                console.log(files)
                 addDroppedFiles(files)
                 e.dataTransfer.clearData()
                 dragCounter = 0

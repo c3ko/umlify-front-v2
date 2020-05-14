@@ -10,13 +10,14 @@ const DEV_URL = "http://localhost:8080";
 
 
 export const getUML = (files, imageType) => {
-    
+    console.log(`${DEV_URL}/uml/${imageType}`)
+    console.log(files)
     return dispatch => {
         dispatch(getUMLStarted());
         axios
-            .post(`${DEV_URL}/uml/${imageType}`, {
+            .post(`${DEV_URL}/uml/svgs`, 
                 files
-            })
+            )
             .then(res => {
                 setTimeout(() => {
                     dispatch(getUMLSuccess(res.data))

@@ -26,7 +26,7 @@ function UMLContainer(props) {
         return (
             <div className="uml-panel-container">
     
-                {uml.uml}
+                <p dangerouslySetInnerHTML={{__html: uml.uml}}></p>
     
             </div>
         )

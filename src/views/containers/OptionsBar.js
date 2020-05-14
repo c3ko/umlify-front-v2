@@ -9,7 +9,9 @@ function OptionsBar(props) {
     const { files, getUML } = props;
     const submitHandler = (e) => {
         e.preventDefault();
-        const filesList =  files.allIds.map(id => files.byId[id])
+        console.log("Files:", files)
+        const filesList =  Object.values(files.byIds).map(file => file.src)
+        console.log("filesList", filesList)
         getUML(filesList, 'svgs');
     }
     return (
@@ -19,7 +21,7 @@ function OptionsBar(props) {
             </li>
             <li>
                 <span className="button-group">
-                    <button onClick={(e) => getUML()} className="reset-button button solid">SUBMIT</button>
+                    <button onClick={submitHandler} className="reset-button button solid">SUBMIT</button>
                     <button className="submit-button button outline">DOWNLOAD</button>   
                 </span>
 
@@ -32,4 +34,4 @@ function OptionsBar(props) {
 const mapStateToProps = (state) => ({
     files: state.files
 })
-export default connect(null, { getUML } )(OptionsBar);
+export default connect(mapStateToProps, { getUML } )(OptionsBar);
