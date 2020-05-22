@@ -50,19 +50,19 @@ $dark-grey: #6b6865;
 
 body {
     font-family: 'Inconsolata', 'monospace';
+    overflow: hidden;
 }
 
 .App {
-
+  
   .main-content {
     display: flex;
-    height: 100vh;
+    height: calc(100vh - 65px);
   }
 
   .code-panel-container {
     display: flex;
     width: 60%;
-
     .file-list {
       min-width: 202px;
       width: 202px;
@@ -76,6 +76,8 @@ body {
 
   .uml-panel-container {
     width: 40%;
+    overflow: auto;
+    white-space: nowrap;
   }
 }
 

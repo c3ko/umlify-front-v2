@@ -2,3 +2,12 @@
     overflow: scroll;
     background: lightgray;
 }
+
+.static {
+    cursor: not-allowed;
+}
+
+
+.draggable {
+    cursor: move;
+}

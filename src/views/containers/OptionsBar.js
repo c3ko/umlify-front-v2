@@ -2,7 +2,7 @@ import React, {} from 'react';
 import '../../styles/options.scss';
 import { getUML } from '../../redux/actions/fetch';
 import { connect } from 'react-redux';
-
+import { changeUMLColours } from '../../util/umls';
 
 function OptionsBar(props) {
 
@@ -14,6 +14,12 @@ function OptionsBar(props) {
         console.log("filesList", filesList)
         getUML(filesList, 'svgs');
     }
+
+    const changeColoursHandler = (e) => {
+        e.preventDefault()
+        changeUMLColours('#FFFFF','#00000')
+    }
+
     return (
         <ul className="options-bar-container">
             <li>
@@ -22,11 +28,10 @@ function OptionsBar(props) {
             <li>
                 <span className="button-group">
                     <button onClick={submitHandler} className="reset-button button solid">SUBMIT</button>
-                    <button className="submit-button button outline">DOWNLOAD</button>   
+                    <button onClick={changeColoursHandler} className="download-button button outline">DOWNLOAD</button>   
                 </span>
 
             </li>
-
         </ul>
     )
 }

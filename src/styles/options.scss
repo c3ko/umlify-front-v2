@@ -1,6 +1,7 @@
 $options-bar-height: 50px;
 
 .options-bar-container {
+    
     flex: 0 0 $options-bar-height;
     background: black;
     display: flex;
@@ -32,8 +33,20 @@ $options-bar-height: 50px;
 
         button {
             margin-right: 20px;
+
+        }
+        button.download-button {
+            display: inline-flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-right: 20;
         }
     }
 
-
+    img.chevron-down {
+        margin-left: 8px;
+        width: 10px;
+        height: 10px;
+        color: white;
+    }
 }
