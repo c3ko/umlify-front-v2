@@ -6,7 +6,7 @@ import { changeUMLColours } from '../../util/umls';
 
 function OptionsBar(props) {
 
-    const { files, getUML } = props;
+    const { files, getUML, umlInfo } = props;
     const submitHandler = (e) => {
         e.preventDefault();
         console.log("Files:", files)
@@ -20,6 +20,19 @@ function OptionsBar(props) {
         changeUMLColours('#FFFFF','#00000')
     }
 
+    const downloadUMLHandler = (e) => {
+        e.preventDefault();
+        if (umlInfo.uml){
+            var downloadLink = document.createElement('a')
+            var svgBlob = new Blob([umlInfo.uml], {type:"image/svg+xml;charset=utf-8"})
+            var svgUrl = URL.createObjectURL(svgBlob)
+            downloadLink.href = svgUrl
+            downloadLink.setAttribute('download', 'uml')
+            e.currentTarget.appendChild(downloadLink)
+            downloadLink.click()
+            e.currentTarget.removeChild(downloadLink)
+        }
+    }
     return (
         <ul className="options-bar-container">
             <li>
@@ -28,7 +41,7 @@ function OptionsBar(props) {
             <li>
                 <span className="button-group">
                     <button onClick={submitHandler} className="reset-button button solid">SUBMIT</button>
-                    <button onClick={changeColoursHandler} className="download-button button outline">DOWNLOAD</button>   
+                    <button onClick={downloadUMLHandler} disabled={umlInfo.uml === null} className="download-button button outline">DOWNLOAD</button>   
                 </span>
 
             </li>
@@ -37,6 +50,7 @@ function OptionsBar(props) {
 }
 
 const mapStateToProps = (state) => ({
-    files: state.files
+    files: state.files,
+    umlInfo: state.uml
 })
 export default connect(mapStateToProps, { getUML } )(OptionsBar);

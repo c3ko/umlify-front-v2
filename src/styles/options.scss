@@ -41,6 +41,16 @@ $options-bar-height: 50px;
             align-items: center;
             padding-right: 20;
         }
+
+        button.download-button:disabled {
+            opacity: 0.3;
+            cursor: inherit;
+        }
+
+        button.download-button:disabled:hover {
+            background-color: transparent;
+            border-color: transparent;
+        }
     }
 
     img.chevron-down {
