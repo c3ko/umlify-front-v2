@@ -9,16 +9,10 @@ function OptionsBar(props) {
     const { files, getUML, umlInfo } = props;
     const submitHandler = (e) => {
         e.preventDefault();
-        console.log("Files:", files)
         const filesList =  Object.values(files.byIds).map(file => file.src)
-        console.log("filesList", filesList)
         getUML(filesList, 'svgs');
     }
 
-    const changeColoursHandler = (e) => {
-        e.preventDefault()
-        changeUMLColours('#FFFFF','#00000')
-    }
 
     const downloadUMLHandler = (e) => {
         e.preventDefault();

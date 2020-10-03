@@ -10,12 +10,10 @@ const DEV_URL = "/api";
 
 
 export const getUML = (files, imageType) => {
-    console.log(`${DEV_URL}/uml/${imageType}`)
-    console.log(files)
     return dispatch => {
         dispatch(getUMLStarted());
         axios
-            .post(`${DEV_URL}/uml/svgs`, 
+            .post(`/uml/svgs`, 
                 files
             )
             .then(res => {
