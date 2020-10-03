@@ -6,7 +6,7 @@ import {
 
 import axios from 'axios';
 
-const DEV_URL = "http://localhost:8080";
+const DEV_URL = "/api";
 
 
 export const getUML = (files, imageType) => {
