@@ -6,14 +6,14 @@ import {
 
 import axios from 'axios';
 
-const DEV_URL = "/api";
+const URL = "/api";
 
 
 export const getUML = (files, imageType) => {
     return dispatch => {
         dispatch(getUMLStarted());
         axios
-            .post(`/uml/svgs`, 
+            .post(`${URL}/uml/svgs`, 
                 files
             )
             .then(res => {
